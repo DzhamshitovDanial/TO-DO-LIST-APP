@@ -5,9 +5,9 @@ def creating_task_user():
     global file_name
     now=datetime.now()
     task_list={
-        'topic':'',
+        'TOPIC':'',
         'description':'',
-        'date':'',
+        'ADDED_DATE':'',
         'STATUS':'NOT done'
     }
     user_input_task_topic=input('write your task TOPIC-')
@@ -28,26 +28,37 @@ def create_task(file_name):
         write_file=json.dumps(data,indent=2)
         f.write(write_file)
     print('Done!')
-    print((json.dumps(data,indent=4)))
+    print((json.dumps(data,indent=1)))
 def delete_task(file_name):
     pass
 def clear_list(file_name):
     with open(file_name,'w') as f:
-        json.dump({},f)
+        json.dump([],f)
         print('LIST IS CLEAR')
 def see_list(file_name):
-    with open(file_name,'r') as f:
-        read_file=json.load(f)
-    print(json.dumps(read_file,indent=1))
+    if not os.path.exists(file_name):
+        return
+    elif os.path.getsize(file_name)==0:
+        print('list is clear')
+    else:
+        with open(file_name,'r') as f:
+            read_file=json.load(f)
+        if json.dumps(read_file,indent=1)=='[]':
+            print('LIST IS CLEAR')
+        else:
+            print(json.dumps(read_file,indent=1))
 file_name='tasks_list_data.json'
 print('Hello its a todolist app at python')
-print('Enter what you want to do\n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list ')
-user_input=int(input())
-if user_input==1:
-    create_task(file_name)
-elif user_input==2:
-    delete_task()
-elif user_input==3:
-    see_list(file_name)
-elif user_input==4:
-    clear_list(file_name)
+print('Enter what you want to do\n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit')
+while True:
+    user_input=int(input())
+    if user_input==5:
+        break
+    elif user_input==1:
+        create_task(file_name)
+    elif user_input==2:
+        delete_task()
+    elif user_input==3:
+        see_list(file_name)
+    elif user_input==4:
+        clear_list(file_name)
