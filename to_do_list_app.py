@@ -5,7 +5,6 @@ def creating_task_user():
     global file_name
     now=datetime.now()
     task_list={
-        'number':'',
         'topic':'',
         'description':'',
         'date':'',
@@ -16,13 +15,12 @@ def creating_task_user():
     task_list['topic']=user_input_task_topic
     task_list['description']=user_input_task_decription
     task_list['date']=now.strftime("%Y-%m-%d %H:%M:%S")
-    if os.path.exists(file_name) and os.path.getsize(file_name)>0:
     return task_list
 def create_task(file_name):
     task=creating_task_user()
     if os.path.exists(file_name) and os.path.getsize(file_name)>0:
         with open(file_name,'r') as f:
-            data=read_file=json.load(f)
+            data=json.load(f)
     else:
         data=[]
     data.append(task)
