@@ -62,3 +62,4 @@ while True:
         see_list(file_name)
     elif user_input==4:
         clear_list(file_name)
+    print('MENU \n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit')
