@@ -30,7 +30,13 @@ def create_task(file_name):
     print('Done!')
     print((json.dumps(data,indent=1)))
 def delete_task(file_name):
-    pass
+    with open(file_name,'r') as f:
+        data=json.load(f)
+    number_task=int(input('Enter what task do yuo want to delete-'))
+    del data[number_task-1]
+    with open(file_name,'w') as f:
+        new_data=json.dump(data,f,indent=1)
+        print('Task is deleted')
 def clear_list(file_name):
     with open(file_name,'w') as f:
         json.dump([],f)
@@ -58,7 +64,7 @@ while True:
         elif user_input==1:
             create_task(file_name)
         elif user_input==2:
-            delete_task()
+            delete_task(file_name)
         elif user_input==3:
             see_list(file_name)
         elif user_input==4:
@@ -67,4 +73,4 @@ while True:
             print('MENU \n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit')
         print('Enter 6 to see menu')
     except:
-        print('Please enter only a number')
+        print('Please enter only a number from menu')
