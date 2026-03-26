@@ -1,10 +1,14 @@
 import json
 from datetime import datetime
 import os
-def creating_task_user():
-    global file_name
+def lenghts_of_file(file_name):
+    with open(file_name,'r') as f:
+        data=json.load(f)
+        return len(data)+1
+def creating_task_user(file_name):
     now=datetime.now()
     task_list={
+        'Number of task':lenghts_of_file(file_name),
         'TOPIC':'',
         'description':'',
         'ADDED_DATE':'',
@@ -17,7 +21,7 @@ def creating_task_user():
     task_list['ADDED_DATE']=now.strftime("%Y-%m-%d %H:%M:%S")
     return task_list
 def create_task(file_name):
-    task=creating_task_user()
+    task=creating_task_user(file_name)
     if os.path.exists(file_name) and os.path.getsize(file_name)>0:
         with open(file_name,'r') as f:
             data=json.load(f)
@@ -32,8 +36,13 @@ def create_task(file_name):
 def delete_task(file_name):
     with open(file_name,'r') as f:
         data=json.load(f)
-    number_task=int(input('Enter what task do yuo want to delete-'))
-    del data[number_task-1]
+    try:
+        number_task=int(input('Enter what task do yuo want to delete-'))
+        del data[number_task-1]
+    except ValueError:
+        print('Enter a number from a list')
+    except IndexError:
+        print('Enter a number of task')
     with open(file_name,'w') as f:
         new_data=json.dump(data,f,indent=1)
         print('Task is deleted')
@@ -72,5 +81,5 @@ while True:
         elif user_input==6:
             print('MENU \n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit')
         print('Enter 6 to see menu')
-    except:
+    except ValueError:
         print('Please enter only a number from menu')
