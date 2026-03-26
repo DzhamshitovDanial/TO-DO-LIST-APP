@@ -49,17 +49,22 @@ def see_list(file_name):
             print(json.dumps(read_file,indent=1))
 file_name='tasks_list_data.json'
 print('Hello its a todolist app at python')
-print('Enter what you want to do\n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit')
+print('Enter what you want to do\n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit \n 6.See menu')
 while True:
-    user_input=int(input())
-    if user_input==5:
-        break
-    elif user_input==1:
-        create_task(file_name)
-    elif user_input==2:
-        delete_task()
-    elif user_input==3:
-        see_list(file_name)
-    elif user_input==4:
-        clear_list(file_name)
-    print('MENU \n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit')
+    try:
+        user_input=int(input())
+        if user_input==5:
+            break
+        elif user_input==1:
+            create_task(file_name)
+        elif user_input==2:
+            delete_task()
+        elif user_input==3:
+            see_list(file_name)
+        elif user_input==4:
+            clear_list(file_name)
+        elif user_input==6:
+            print('MENU \n 1.Create a new task \n 2.Mark a Task (Done) \n 3.See all tasks \n 4.Clear whole list \n 5.Exit')
+        print('Enter 6 to see menu')
+    except:
+        print('Please enter only a number')
